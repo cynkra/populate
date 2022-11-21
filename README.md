@@ -80,7 +80,7 @@ populate(data, ee = 1)
 populate(data, a = 1)
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 55:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:55:2]8;;:
+#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
 #> ℹ In argument: `a = vctrs::vec_cast(1, vctrs::vec_ptype(a))`.
 #> Caused by error:
 #> ! Can't convert `1` <double> to <character>.
@@ -97,7 +97,7 @@ populate(data, b = 3:4)
 populate(data, b = 3:4, .strict = TRUE) 
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 55:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:55:2]8;;:
+#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
 #> ℹ In argument: `b = vctrs::vec_assert(3:4, vctrs::vec_ptype(b))`.
 #> Caused by error:
 #> ! `3:4` must be a vector with type <double>.
@@ -115,7 +115,7 @@ populate(data, c = c("b", "b"))
 populate(data, c = c("b", "d")) 
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 55:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:55:2]8;;:
+#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
 #> ℹ In argument: `c = vctrs::vec_cast(c("b", "d"), vctrs::vec_ptype(c))`.
 #> Caused by error:
 #> ! Can't convert from `c("b", "d")` <character> to <factor<38051>> due to loss of generality.
@@ -133,7 +133,7 @@ populate(data, d = lubridate::as_datetime(c("2022-01-01", "2022-01-02")))
 populate(data, d = c("2022-01-01", "2022-01-02"))
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 55:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:55:2]8;;:
+#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
 #> ℹ In argument: `d = vctrs::vec_cast(c("2022-01-01", "2022-01-02"),
 #>   vctrs::vec_ptype(d))`.
 #> Caused by error:
@@ -143,7 +143,7 @@ populate(data, d = c("2022-01-01", "2022-01-02"))
 populate(data, e = list(iris)) 
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 55:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:55:2]8;;:
+#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
 #> ℹ In argument: `e = vctrs::vec_cast(list(iris), vctrs::vec_ptype(e))`.
 #> Caused by error:
 #> ! Can't convert from `..1` <data.frame<

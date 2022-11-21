@@ -70,7 +70,7 @@ populate <- function(.data, ..., .strict = FALSE) {
     candidates <- unique(names(.data)[min_dists])
     msg <- "`populate()` can't create new columns."
     info1 <- sprintf("Not found in data: %s.", toString(paste0("`", new_nms, "`")))
-    info2 <- sprintf("Did you need mispell %s?", toString(paste0("`", candidates, "`")))
+    info2 <- sprintf("Did you mispell %s?", toString(paste0("`", candidates, "`")))
     info3 <- "Do you need `collate()`?"
     rlang::abort(c(msg, x = info1, i = info2, i = info3))
   }
