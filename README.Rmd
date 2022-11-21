@@ -1,0 +1,101 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# populate
+
+Draft for discussion.
+
+This issue was closed : https://github.com/tidyverse/dplyr/issues/6547
+
+Is this extension package useful ?
+
+{populate} provides stricter wrappers around `dplyr::mutate()`:
+
+* `populate()` makes sure the input's ptype is preserved
+  * no column type change
+  * no column addition
+  * no column deletion (`mutate()` can delete with `NULL`)
+  * cast by default, assert optionally
+* `collate()` only creates new columns
+
+Do we need more or should we keep it simple?
+
+* `abrogate()` to remove columns ?
+* `sublimate()` like `populate()` but allow ptype change (doesn't allow new col creation) ?
+* `summarize()` variants ?
+
+Is it better to use a subclass of data frame (as in linked github issue) so we can make safe versions of
+everything including functions like `count()`, `unnest()`, joins ... 
+
+We'd lose autocomplete of new args, maybe more confusing than having new verbs ?
+
+## Installation
+
+You can install the development version of populate like so:
+
+``` r
+devtools::install_github("cynkra/populate")
+```
+
+## Examples
+
+
+```{r example, error = TRUE}
+library(populate)
+
+data <- tibble::tibble(
+  a = letters[1:2],
+  b = c(1,2), 
+  c = factor(letters[1:2]), 
+  d = as.Date(c("2022-01-01", "2022-01-02")), 
+  e = vctrs::list_of(cars)
+)
+
+# can't create a column if it exists
+collate(data, a = 1) 
+
+# but we can create new columns
+collate(data, ee = 1) 
+
+# we can't create a new column with populate()
+populate(data, ee = 1) 
+
+ # can't cast double to character
+populate(data, a = 1)
+
+# casting integer to double
+populate(data, b = 3:4) 
+
+# doesn't work if `.strict` is `TRUE`
+populate(data, b = 3:4, .strict = TRUE) 
+
+# casting character to factor with allowed levels
+populate(data, c = c("b", "b")) 
+
+# can't cast because wrong levels
+populate(data, c = c("b", "d")) 
+
+# datetimes are casted to date
+populate(data, d = lubridate::as_datetime(c("2022-01-01", "2022-01-02"))) 
+
+ # characters can't be casted to date
+populate(data, d = c("2022-01-01", "2022-01-02"))
+
+# using list_of allowed us to prevent corrupting our data silently
+populate(data, e = list(iris)) 
+
+# and we don't have to bother with list_of anymore if we feed the right format
+populate(data, e = list(head(cars))) 
+```

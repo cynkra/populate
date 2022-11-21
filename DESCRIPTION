@@ -1,0 +1,18 @@
+Package: populate
+Title: Safe Wrappers around 'dplyr::mutate()'
+Version: 0.0.0.9000
+Authors@R: 
+    person("Antoine", "Fabri", , "antoine.fabri@gmail.com", role = c("aut", "cre"))
+Description: Safe wrappers around 'dplyr::mutate()'.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    dplyr,
+    purrr,
+    rlang,
+    vctrs
+Suggests: 
+    lubridate,
+    tibble
