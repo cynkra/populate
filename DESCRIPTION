@@ -16,3 +16,5 @@ Imports:
 Suggests: 
     lubridate,
     tibble
+URL: https://github.com/cynkra/populate
+BugReports: https://github.com/cynkra/populate/issues
