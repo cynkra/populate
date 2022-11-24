@@ -72,7 +72,7 @@ collate(data, ee = 1)
 # we can't create a new column with populate()
 populate(data, ee = 1) 
 
- # can't cast double to character
+# can't cast character to double
 populate(data, a = 1)
 
 # casting integer to double
