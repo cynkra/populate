@@ -73,15 +73,15 @@ populate(data, ee = 1)
 #> Error in `populate()`:
 #> ! `populate()` can't create new columns.
 #> ✖ Not found in data: `ee`.
-#> ℹ Did you need mispell `e`?
+#> ℹ Did you mispell `e`?
 #> ℹ Do you need `collate()`?
 
- # can't cast double to character
+# can't cast character to double
 populate(data, a = 1)
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
-#> ℹ In argument: `a = vctrs::vec_cast(1, vctrs::vec_ptype(a))`.
+#> Caused by error in `dplyr::mutate()`:
+#> ! Problem while computing `a = vctrs::vec_cast(1, vctrs::vec_ptype(a))`.
 #> Caused by error:
 #> ! Can't convert `1` <double> to <character>.
 
@@ -97,8 +97,9 @@ populate(data, b = 3:4)
 populate(data, b = 3:4, .strict = TRUE) 
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
-#> ℹ In argument: `b = vctrs::vec_assert(3:4, vctrs::vec_ptype(b))`.
+#> Caused by error in `dplyr::mutate()`:
+#> ! Problem while computing `b = vctrs::vec_assert(3:4,
+#>   vctrs::vec_ptype(b))`.
 #> Caused by error:
 #> ! `3:4` must be a vector with type <double>.
 #> Instead, it has type <integer>.
@@ -115,8 +116,9 @@ populate(data, c = c("b", "b"))
 populate(data, c = c("b", "d")) 
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
-#> ℹ In argument: `c = vctrs::vec_cast(c("b", "d"), vctrs::vec_ptype(c))`.
+#> Caused by error in `dplyr::mutate()`:
+#> ! Problem while computing `c = vctrs::vec_cast(c("b", "d"),
+#>   vctrs::vec_ptype(c))`.
 #> Caused by error:
 #> ! Can't convert from `c("b", "d")` <character> to <factor<38051>> due to loss of generality.
 #> • Locations: 2
@@ -133,9 +135,9 @@ populate(data, d = lubridate::as_datetime(c("2022-01-01", "2022-01-02")))
 populate(data, d = c("2022-01-01", "2022-01-02"))
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
-#> ℹ In argument: `d = vctrs::vec_cast(c("2022-01-01", "2022-01-02"),
-#>   vctrs::vec_ptype(d))`.
+#> Caused by error in `dplyr::mutate()`:
+#> ! Problem while computing `d = vctrs::vec_cast(c("2022-01-01",
+#>   "2022-01-02"), vctrs::vec_ptype(d))`.
 #> Caused by error:
 #> ! Can't convert `c("2022-01-01", "2022-01-02")` <character> to <date>.
 
@@ -143,25 +145,29 @@ populate(data, d = c("2022-01-01", "2022-01-02"))
 populate(data, e = list(iris)) 
 #> Error in `populate()`:
 #> ! Can't `populate()` the data.
-#> Caused by error in `dplyr::mutate()` at ]8;line = 91:col = 2;file:///Users/Antoine/git/populate/R/populate.Rpopulate/R/populate.R:91:2]8;;:
-#> ℹ In argument: `e = vctrs::vec_cast(list(iris), vctrs::vec_ptype(e))`.
+#> Caused by error in `dplyr::mutate()`:
+#> ! Problem while computing `e = vctrs::vec_cast(list(iris),
+#>   vctrs::vec_ptype(e))`.
 #> Caused by error:
-#> ! Can't convert from `..1` <data.frame<
-#>   Sepal.Length: double
-#>   Sepal.Width : double
-#>   Petal.Length: double
-#>   Petal.Width : double
-#>   Species     : factor<fb977>
-#> >> to <data.frame<
-#>   speed: double
-#>   dist : double
-#> >> due to loss of precision.
+#> ! Can't convert `list(iris)` <list> to <list_of<
+#>   data.frame<
+#>     speed: double
+#>     dist : double
+#>   >
+#> >>.
 
 # and we don't have to bother with list_of anymore if we feed the right format
 populate(data, e = list(head(cars))) 
-#> # A tibble: 2 × 5
-#>   a         b c     d                       e
-#>   <chr> <dbl> <fct> <date>     <list<df[,2]>>
-#> 1 a         1 a     2022-01-01        [6 × 2]
-#> 2 b         2 b     2022-01-02        [6 × 2]
+#> Error in `populate()`:
+#> ! Can't `populate()` the data.
+#> Caused by error in `dplyr::mutate()`:
+#> ! Problem while computing `e = vctrs::vec_cast(list(head(cars)),
+#>   vctrs::vec_ptype(e))`.
+#> Caused by error:
+#> ! Can't convert `list(head(cars))` <list> to <list_of<
+#>   data.frame<
+#>     speed: double
+#>     dist : double
+#>   >
+#> >>.
 ```
